@@ -25,7 +25,11 @@ describe('DetectTokensController', function () {
     network.setInfuraProjectId('foo');
     network.initializeProvider(networkControllerProviderConfig);
     provider = network.getProviderAndBlockTracker().provider;
-    preferences = new PreferencesController({ network, provider });
+    preferences = new PreferencesController({
+      network,
+      provider,
+      trackMetaMetricsTrait: (_p) => null,
+    });
     preferences.setAddresses([
       '0x7e57e2',
       '0xbc86727e770de68b1060c91f6bb6945c73e10388',

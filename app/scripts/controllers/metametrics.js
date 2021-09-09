@@ -345,4 +345,12 @@ export default class MetaMetricsController {
 
     await Promise.all(events);
   }
+
+  trackTrait(payload) {
+    if (!this.state.participateInMetaMetrics) {
+      return;
+    }
+
+    this.segment.identify(this.state.metaMetricsId, payload);
+  }
 }

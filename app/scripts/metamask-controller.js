@@ -159,6 +159,7 @@ export default class MetamaskController extends EventEmitter {
       network: this.networkController,
       provider: this.provider,
       migrateAddressBookState: this.migrateAddressBookState.bind(this),
+      trackMetaMetricsTrait: this.trackMetaMetricsTrait,
     });
 
     this.metaMetricsController = new MetaMetricsController({
@@ -1581,6 +1582,9 @@ export default class MetamaskController extends EventEmitter {
         this.preferencesController.setSelectedAddress(address);
       }
     });
+    this.trackMetaMetricsTrait({
+      number_of_accounts: newAccounts.length,
+    });
 
     const { identities } = this.preferencesController.store.getState();
     return { ...keyState, identities };
@@ -1613,6 +1617,10 @@ export default class MetamaskController extends EventEmitter {
 
     try {
       await seedPhraseVerifier.verifyAccounts(accounts, seedWords);
+      // We call this here to track account length on first-time setup
+      this.trackMetaMetricsTrait({
+        number_of_accounts: accounts.length,
+      });
       return seedWords;
     } catch (err) {
       log.error(err.message);
@@ -3046,5 +3054,14 @@ export default class MetamaskController extends EventEmitter {
    */
   setLocked() {
     return this.keyringController.setLocked();
+  }
+
+  /**
+   * A wrapper for the 'trackTrait' function of the metrics controller
+   * This is to avoid a circular dependency issue when initializing the
+   * preferences and metrics controllers.
+   */
+  trackMetaMetricsTrait(payload) {
+    this.metaMetricsController.trackTrait(payload);
   }
 }

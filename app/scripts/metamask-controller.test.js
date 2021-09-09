@@ -148,6 +148,7 @@ describe('MetaMaskController', function () {
       metamaskController.keyringController,
       'createNewVaultAndRestore',
     );
+    sandbox.spy(metamaskController.metaMetricsController, 'trackTrait');
   });
 
   afterEach(function () {
@@ -710,6 +711,11 @@ describe('MetaMaskController', function () {
       await metamaskController.addNewAccount();
       const getAccounts = await metamaskController.keyringController.getAccounts();
       assert.equal(getAccounts.length, 2);
+      assert(
+        metamaskController.metaMetricsController.trackTrait.calledWith({
+          number_of_accounts: 2,
+        }),
+      );
     });
   });
 

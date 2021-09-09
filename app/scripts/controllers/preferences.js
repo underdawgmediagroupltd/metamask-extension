@@ -86,6 +86,7 @@ export default class PreferencesController {
     this.store.setMaxListeners(12);
     this.openPopup = opts.openPopup;
     this.migrateAddressBookState = opts.migrateAddressBookState;
+    this.trackMetaMetricsTrait = opts.trackMetaMetricsTrait;
 
     this.network.on(NETWORK_EVENTS.NETWORK_DID_CHANGE, () => {
       const { tokens, hiddenTokens } = this._getTokenRelatedStates();
@@ -427,6 +428,7 @@ export default class PreferencesController {
     }
     assetImages[address] = image;
     this._updateAccountTokens(tokens, assetImages, updatedHiddenTokens);
+    this.trackMetaMetricsTrait({ number_of_tokens: tokens.length });
     return Promise.resolve(tokens);
   }
 

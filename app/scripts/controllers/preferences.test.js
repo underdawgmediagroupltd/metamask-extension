@@ -17,6 +17,7 @@ describe('preferences controller', function () {
   let switchToMainnet;
   let switchToRinkeby;
   let provider;
+  let trackTraitSpy;
   const migrateAddressBookState = sinon.stub();
 
   beforeEach(function () {
@@ -43,7 +44,9 @@ describe('preferences controller', function () {
       migrateAddressBookState,
       network,
       provider,
+      trackMetaMetricsTrait: (_p) => null,
     });
+
     triggerNetworkChange = spy.firstCall.args[1];
     switchToMainnet = () => {
       currentChainId = MAINNET_CHAIN_ID;
@@ -53,10 +56,12 @@ describe('preferences controller', function () {
       currentChainId = RINKEBY_CHAIN_ID;
       triggerNetworkChange();
     };
+    trackTraitSpy = sandbox.spy(preferencesController, 'trackMetaMetricsTrait');
   });
 
   afterEach(function () {
     sinon.restore();
+    trackTraitSpy.restore();
   });
 
   describe('setAddresses', function () {
@@ -286,6 +291,7 @@ describe('preferences controller', function () {
       assert.equal(added.address, address, 'set address correctly');
       assert.equal(added.symbol, symbol, 'set symbol correctly');
       assert.equal(added.decimals, decimals, 'set decimals correctly');
+      assert(trackTraitSpy.calledWith({ number_of_tokens: 1 }));
     });
 
     it('should allow updating a token value', async function () {
@@ -323,6 +329,7 @@ describe('preferences controller', function () {
         1,
         'one token added for 1st address',
       );
+      assert(trackTraitSpy.calledWith({ number_of_tokens: 1 }));
 
       await preferencesController.setSelectedAddress('0xda22le');
       await preferencesController.addToken(address, symbol, decimals);
@@ -331,6 +338,7 @@ describe('preferences controller', function () {
         1,
         'one token added for 2nd address',
       );
+      assert(trackTraitSpy.calledWith({ number_of_tokens: 1 }));
     });
 
     it('should add token per account', async function () {
@@ -345,6 +353,7 @@ describe('preferences controller', function () {
       await preferencesController.setSelectedAddress('0x7e57e2');
       await preferencesController.addToken(addressFirst, symbolFirst, decimals);
       const tokensFirstAddress = preferencesController.getTokens();
+      assert(trackTraitSpy.calledWith({ number_of_tokens: 1 }));
 
       await preferencesController.setSelectedAddress('0xda22le');
       await preferencesController.addToken(
@@ -359,6 +368,7 @@ describe('preferences controller', function () {
         tokensSeconAddress,
         'add different tokens for two account and tokens are equal',
       );
+      assert(trackTraitSpy.calledWith({ number_of_tokens: 1 }));
     });
 
     it('should add token per network', async function () {
@@ -369,6 +379,7 @@ describe('preferences controller', function () {
       const decimals = 5;
       await preferencesController.addToken(addressFirst, symbolFirst, decimals);
       const tokensFirstAddress = preferencesController.getTokens();
+      assert(trackTraitSpy.calledWith({ number_of_tokens: 1 }));
 
       switchToRinkeby();
       await preferencesController.addToken(
@@ -383,6 +394,7 @@ describe('preferences controller', function () {
         tokensSeconAddress,
         'add different tokens for two networks and tokens are equal',
       );
+      assert(trackTraitSpy.calledWith({ number_of_tokens: 1 }));
     });
   });
 
@@ -406,6 +418,7 @@ describe('preferences controller', function () {
 
       const tokens = preferencesController.getTokens();
       assert.equal(tokens.length, 1, 'one token removed');
+      assert(trackTraitSpy.calledWith({ number_of_tokens: 1 }));
 
       const [token1] = tokens;
       assert.deepEqual(token1, {
@@ -421,12 +434,15 @@ describe('preferences controller', function () {
       await preferencesController.setSelectedAddress('0x7e57e2');
       await preferencesController.addToken('0xa', 'A', 4);
       await preferencesController.addToken('0xb', 'B', 5);
+      assert(trackTraitSpy.calledWith({ number_of_tokens: 2 }));
       await preferencesController.setSelectedAddress('0x7e57e3');
       await preferencesController.addToken('0xa', 'A', 4);
       await preferencesController.addToken('0xb', 'B', 5);
+      assert(trackTraitSpy.calledWith({ number_of_tokens: 2 }));
       const initialTokensSecond = preferencesController.getTokens();
       await preferencesController.setSelectedAddress('0x7e57e2');
       await preferencesController.removeToken('0xa');
+      assert(trackTraitSpy.calledWith({ number_of_tokens: 1 }));
 
       const tokensFirst = preferencesController.getTokens();
       assert.equal(tokensFirst.length, 1, 'one token removed in account');
