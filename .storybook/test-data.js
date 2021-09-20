@@ -103,6 +103,12 @@ const state = {
         },
       },
     },
+    recipient: {
+      address: '0x39a4e4Af7cCB654dB9500F258c64781c8FbD39F0',
+      nickname: 'John Doe',
+      error: '',
+      warning: '',
+    },
     addresses: [
       {
         address: '0x39a4e4Af7cCB654dB9500F258c64781c8FbD39F0',
@@ -120,7 +126,7 @@ const state = {
     },
     tokens: [
       {
-        address: '0xaD6D458402F60fD3Bd25163575031ACDce07538A',
+        address: '0xaD6D458402F60fD3Bd25163575031ACDce07538D',
         symbol: 'DAA',
         decimals: 18,
       },
@@ -373,6 +379,8 @@ const state = {
               timestamp: 1629582721178,
               value: 'confirmed',
             },
+          ],
+          [
             {
               op: 'add',
               path: '/txReceipt',
