@@ -5040,13 +5040,13 @@ amdefine@>=0.0.4:
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
   integrity sha1-SlKCrBZHKek2Gbz9OtFR+BfOkfU=
 
-analytics-node@^3.4.0-beta.3:
-  version "3.4.0-beta.3"
-  resolved "https://registry.yarnpkg.com/analytics-node/-/analytics-node-3.4.0-beta.3.tgz#5eb0694598cff493c64faf5efc1225533a253f13"
-  integrity sha512-NIdpxiwlZ4cKgs9MDlDe89b5bg/pMq2W7XTA+cjzCM66IwW3ujZhVE49vk+zG6Yrxk0s/DXmennJ+cCQIsTKMA==
+analytics-node@^3.5.0:
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/analytics-node/-/analytics-node-3.5.0.tgz#b33ff92195f006b20f1c4e28af86d975c98e4636"
+  integrity sha512-XgQq6ejZHCehUSnZS4V7QJPLIP7S9OAWwQDYl4WTLtsRvc5fCxIwzK/yihzmIW51v9PnyBmrl9dMcqvwfOE8WA==
   dependencies:
     "@segment/loosely-validate-event" "^2.0.0"
-    axios "^0.19.2"
+    axios "^0.21.1"
     axios-retry "^3.0.2"
     lodash.isstring "^4.0.1"
     md5 "^2.2.1"
@@ -5800,7 +5800,7 @@ axios-retry@^3.0.2:
   dependencies:
     is-retry-allowed "^1.1.0"
 
-axios@^0.19.2, axios@^0.21.1:
+axios@^0.21.1:
   version "0.21.1"
   resolved "https://registry.yarnpkg.com/axios/-/axios-0.21.1.tgz#22563481962f4d6bde9a76d516ef0e5d3c09b2b8"
   integrity sha512-dKQiRHxGD9PPRIUNIWvZhPTPpl1rf/OxTYKsqKUDjBwYylTvV7SjSHJb9ratfyzM6wCdLCOYLzs73qpg5c4iGA==
@@ -19642,7 +19642,7 @@ nanoassert@^1.0.0:
   resolved "https://registry.yarnpkg.com/nanoassert/-/nanoassert-1.1.0.tgz#4f3152e09540fde28c76f44b19bbcd1d5a42478d"
   integrity sha1-TzFS4JVA/eKMdvRLGbvNHVpCR40=
 
-nanoid@^2.0.0, nanoid@^2.1.6:
+nanoid@^2.0.0:
   version "2.1.11"
   resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-2.1.11.tgz#ec24b8a758d591561531b4176a01e3ab4f0f0280"
   integrity sha512-s/snB+WGm6uwi0WjsZdaVcuf3KJXlfGl2LcxgwkEwJF0D/BWzVWAZW/XY4bFaiR7s0Jk3FPvlnepg1H1b1UwlA==
@@ -19651,6 +19651,11 @@ nanoid@^3.1.12, nanoid@^3.1.23:
   version "3.1.23"
   resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.1.23.tgz#f744086ce7c2bc47ee0a8472574d5c78e4183a81"
   integrity sha512-FiB0kzdP0FFVGDKlRLEQ1BgDzU87dy5NnzjeW9YZNt+/c3+q82EQDUwniSAUxp/F0gFNI1ZhKU1FqYsMuqZVnw==
+
+nanoid@^3.1.31:
+  version "3.1.32"
+  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.1.32.tgz#8f96069e6239cc0a9ae8c0d3b41a3b4933a88c0a"
+  integrity sha512-F8mf7R3iT9bvThBoW4tGXhXFHCctyCiUUPrWF8WaTqa3h96d9QybkSeba43XVOOE3oiLfkVDe4bT8MeGmkrTxw==
 
 nanomatch@^1.2.9:
   version "1.2.9"
